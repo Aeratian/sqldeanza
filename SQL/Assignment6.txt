@@ -1,0 +1,30 @@
+sqluser55
+Lab Assignment #6
+Ian Youn
+86406
+7/27/2021
+7/27/2021
+
+Relationships
+1. College(parent) can have zero or more department(child)
+2. Department(parent) has zero or more courses(child)
+3. Course(parent) has zero or more sections(child)
+4. Section(child) has one or more users(instructors) (parent)
+5. Department(child) has exactly one college(parent)
+6. Course(child) has exactly one department(parent)
+7. Section(child) has exactly one course(parent)
+8. User(parent) has zero or more sections(child)
+9. Section(child) has exactly one location(parent)
+10. Location(parent) has zero or more sections(child)
+11. User(child) has zero or one resident(resident status) (parent)
+12. Resident(parent) has zero or more users(child)
+13. Studentregistration(child) has exactly one user(parent)
+14. Studentregistration(child) has one or more sections(parent)
+15. Studentregistration(child) has exactly one payment(parent)
+16. Payment(parent) has one or more student registration(child)
+17. User(parent) has zero or more student registration(child)
+18. Section(parent) has exactly one student registration(child)
+19. Course has one or more prerequisites - self key
+20. Department(child) has exactly one location(parent)
+21. Location(parent) has zero or more departments(child)
+

@@ -1,0 +1,127 @@
+sqluser55
+Lab Assignment #5
+Ian Youn
+86406
+7/23/2021
+7/23/2021
+
+1a. SELECT CONCAT(ENAME,LPAD(' ',ROUND(SAL/100)+1,'*')) AS "EMPLOYEE_AND_THEIR_SALARIES"
+  2  FROM EMP
+  3  ORDER BY SAL DESC;
+
+EMPLOYEE_AND_THEIR_SALARIES
+--------------------------------------------------------------------------------
+KING      **************************************************
+SCOTT     ******************************
+FORD      ******************************
+JONES     ******************************
+BLAKE     *****************************
+CLARK     *************************
+ALLEN     ****************
+TURNER    ***************
+MILLER    *************
+WARD      *************
+MARTIN    *************
+
+EMPLOYEE_AND_THEIR_SALARIES
+--------------------------------------------------------------------------------
+ADAMS     ***********
+JAMES     **********
+SMITH     ********
+
+14 rows selected.
+
+
+
+
+
+
+
+1b. SELECT ENAME, LOWER(SUBSTR(ENAME,1,2)) AS "USERNAME", TO_CHAR(HIREDATE,'MM/DD/YY'), ROUND(SAL,2), TO_CHAR(NEXT_DAY(ADD_MONTHS(HIREDATE,6),'MONDAY'),'MM/DD/YY') AS "REVIEW"
+  2  FROM EMP;
+
+ENAME      USERNAME TO_CHAR( ROUND(SAL,2) REVIEW
+---------- -------- -------- ------------ --------
+KING       ki       11/17/81         5000 05/24/82
+BLAKE      bl       05/01/81         2850 11/02/81
+CLARK      cl       06/09/81         2450 12/14/81
+JONES      jo       04/02/81         2975 10/05/81
+MARTIN     ma       09/28/81         1250 03/29/82
+ALLEN      al       02/20/81         1600 08/24/81
+TURNER     tu       09/08/81         1500 03/15/82
+JAMES      ja       12/03/81          950 06/07/82
+WARD       wa       02/22/81         1250 08/24/81
+FORD       fo       12/03/81         3000 06/07/82
+SMITH      sm       12/17/80          800 06/22/81
+
+ENAME      USERNAME TO_CHAR( ROUND(SAL,2) REVIEW
+---------- -------- -------- ------------ --------
+SCOTT      sc       12/09/82         3000 06/13/83
+ADAMS      ad       01/12/83         1100 07/18/83
+MILLER     mi       01/23/82         1300 07/26/82
+
+14 rows selected.
+
+
+
+
+
+
+1c. SELECT *
+  2  FROM EMP
+  3  WHERE DEPTNO IN (SELECT DEPTNO FROM DEPT WHERE TRIM(LOC) = 'BOSTON') AND SAL > 1000;
+
+no rows selected
+
+
+
+
+2a. SELECT CONCAT(TRIM(ENAME),CONCAT(', ',JOB)) AS "Employees", HIREDATE
+  2  FROM EMP
+  3  WHERE HIREDATE BETWEEN '01/JAN/81' AND '31/DEC/81';
+
+Employees             HIREDATE
+--------------------- ---------
+KING, PRESIDENT       17-NOV-81
+BLAKE, MANAGER        01-MAY-81
+CLARK, MANAGER        09-JUN-81
+JONES, MANAGER        02-APR-81
+MARTIN, SALESMAN      28-SEP-81
+ALLEN, SALESMAN       20-FEB-81
+TURNER, SALESMAN      08-SEP-81
+JAMES, CLERK          03-DEC-81
+WARD, SALESMAN        22-FEB-81
+FORD, ANALYST         03-DEC-81
+
+10 rows selected.
+
+
+
+
+
+2b. Correlated subqueries are subqueries that use data from an outer query. The subquery is dependent on the results of the outer query. These queries are typically used in WHERE, HAVING, or SET clauses in SELECT, UPDATE, or DELETE statements. Correlated subqueries are especially useful when solving problems involving connections to another entry in the table. For example, when we are querying for employees that are paid higher than the employee with empno 7499 (Allen) in the same department, we can use this query:
+SELECT A.ENAME, A.SAL
+FROM EMP A
+WHERE A.SAL > (SELECT B.SAL FROM EMP B WHERE B.EMPNO = 7499 AND A.DEPTNO = B.DEPTNO);
+In this example, the results of the inner subquery are dependent on the deptno of the outer query, making this a correlated subquery.
+
+Inline views, on the other hand, are subqueries that are typically used in the FROM clause
+in place of a table to remove the need for confusing and complicated joins. Inline views can also be used with INSERT, UPDATE, and DELETE clauses to insert, update, or delete only entries satisfying a certain condition. For example, to find the maximum salaries for each department and the department names, we can use the query:
+SELECT A.MAX, B.DNAME
+FROM
+(
+SELECT MAX(SAL) AS "MAX", DEPTNO
+FROM EMP
+GROUP BY DEPTNO
+) A,
+DEPT B
+WHERE A.DEPTNO = B.DEPTNO;
+In the inline view, we remove all unneeded data and successfully accomplish our task. We can also use inline views to give a 5% raise to all employees in department 10 using this statement:
+UPDATE
+(
+SELECT SAL AS "Salary"
+FROM EMP
+WHERE DEPTNO = 10
+)
+SET SAL = SAL * 1.05;
+

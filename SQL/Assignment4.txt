@@ -1,0 +1,91 @@
+sqluser55
+Lab Assignment #4
+Ian Youn
+86406
+7/19/2021
+7/19/2021
+
+1. SELECT MGR, MIN(SAL)
+  2  FROM EMP
+  3  WHERE MGR IS NOT NULL
+  4  HAVING MIN(SAL) >= 1000
+  5  GROUP BY MGR
+  6  ORDER BY MIN(SAL) DESC;
+
+       MGR   MIN(SAL)
+---------- ----------
+      7566       3000
+      7839       2450
+      7782       1300
+      7788       1100
+
+
+
+
+2. SELECT A.DNAME AS "dname", A.LOC AS "loc", COUNT(B.DEPTNO) AS "Number of People", NVL(AVG(B.SAL),0) AS "Salary"
+  2  FROM DEPT A FULL OUTER JOIN EMP B
+  3  ON A.DEPTNO = B.DEPTNO
+  4  GROUP BY A.DNAME, A.LOC;
+
+dname          loc           Number of People     Salary
+-------------- ------------- ---------------- ----------
+ACCOUNTING     NEW YORK                     3 2916.66667
+SALES          CHICAGO                      6 1566.66667
+RESEARCH       DALLAS                       5       2175
+TRAINING       SAN FRANCISCO                0          0
+OPERATIONS     BOSTON                       0          0
+
+
+
+
+
+
+3. SELECT A.DNAME, MIN(B.GRADE), MIN(C.SAL), NVL(AVG(C.COMM),0)
+  2  FROM EMP C
+  3  FULL OUTER JOIN DEPT A
+  4  ON A.DEPTNO = C.DEPTNO
+  5  FULL OUTER JOIN SALGRADE B
+  6  ON C.SAL BETWEEN B.LOSAL AND B.HISAL
+  7  GROUP BY A.DNAME;
+
+DNAME          MIN(B.GRADE) MIN(C.SAL) NVL(AVG(C.COMM),0)
+-------------- ------------ ---------- ------------------
+OPERATIONS                                              0
+RESEARCH                  1        800                  0
+TRAINING                                                0
+SALES                     1        950                550
+ACCOUNTING                2       1300                  0
+
+
+
+
+
+4. COUNT(*) counts the number of rows in the table, while COUNT(col_name) counts the number of rows with non-null values in the specific column. For example, the emp table has 14 rows in total, so COUNT(*) returns 14. On the other hand, since one row contains a null value for the MGR column, COUNT(MGR) returns 13 because there are 14 - 1 = 13 non-null values in the MGR column. COUNT(DISTINCT(col_name)) will count the number of distinct values in a column excluding the null values. So, in the example of the emp table, since there are 6 different managers (7839, 7698, 7566, 7902, 7788, and 7782), COUNT(DISTINCT(MGR)) will return 6. COUNT(ALL(MGR)) will return the same thing as COUNT(MGR). Therefore, COUNT(ALL(MGR)) returns 13. The all keyword just explicitly states that all rows are considered rather than only distinct rows being considered. In the case of COUNT(column_name), the ALL function is simply omitted as it is the default mode for the COUNT function.
+
+
+
+
+5. SELECT EMPNO, ENAME, SAL, TRUNC(SAL*1.15) AS "New Salary"
+  2  FROM EMP;
+
+     EMPNO ENAME             SAL New Salary
+---------- ---------- ---------- ----------
+      7839 KING             5000       5750
+      7698 BLAKE            2850       3277
+      7782 CLARK            2450       2817
+      7566 JONES            2975       3421
+      7654 MARTIN           1250       1437
+      7499 ALLEN            1600       1840
+      7844 TURNER           1500       1725
+      7900 JAMES             950       1092
+      7521 WARD             1250       1437
+      7902 FORD             3000       3450
+      7369 SMITH             800        920
+
+     EMPNO ENAME             SAL New Salary
+---------- ---------- ---------- ----------
+      7788 SCOTT            3000       3450
+      7876 ADAMS            1100       1265
+      7934 MILLER           1300       1495
+
+14 rows selected.

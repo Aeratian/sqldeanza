@@ -1,0 +1,169 @@
+sqluser55
+Lab Assignment #3
+Ian Youn
+86406
+7/16/2021
+7/16/2021
+
+1. SELECT A.EMPNO AS "Employee Number", A.ENAME AS "Employee Name", A.HIREDATE AS "Hiredate", B.ENAME AS "Mgr Name"
+  2  FROM EMP A, EMP B
+  3  WHERE A.MGR = B.EMPNO AND (B.ENAME LIKE 'K%' OR B.ENAME LIKE 'M%' OR B.ENAME LIKE 'S%');
+
+Employee Number Employee N Hiredate  Mgr Name
+--------------- ---------- --------- ----------
+           7876 ADAMS      12-JAN-83 SCOTT
+           7698 BLAKE      01-MAY-81 KING
+           7782 CLARK      09-JUN-81 KING
+           7566 JONES      02-APR-81 KING
+
+
+
+
+2. SELECT A.ENAME AS "Employee Name", A.DEPTNO AS "Department Number", B.DNAME AS "Department Name", C.ENAME AS "Co-worker Name"
+  2  FROM EMP A, DEPT B, EMP C
+  3  WHERE A.DEPTNO = B.DEPTNO AND A.DEPTNO = C.DEPTNO AND A.EMPNO != C.EMPNO;
+
+Employee N Department Number Department Nam Co-worker
+---------- ----------------- -------------- ----------
+MILLER                    10 ACCOUNTING     KING
+CLARK                     10 ACCOUNTING     KING
+TURNER                    30 SALES          BLAKE
+MARTIN                    30 SALES          BLAKE
+ALLEN                     30 SALES          BLAKE
+JAMES                     30 SALES          BLAKE
+WARD                      30 SALES          BLAKE
+MILLER                    10 ACCOUNTING     CLARK
+KING                      10 ACCOUNTING     CLARK
+FORD                      20 RESEARCH       JONES
+SMITH                     20 RESEARCH       JONES
+
+Employee N Department Number Department Nam Co-worker
+---------- ----------------- -------------- ----------
+SCOTT                     20 RESEARCH       JONES
+ADAMS                     20 RESEARCH       JONES
+TURNER                    30 SALES          MARTIN
+BLAKE                     30 SALES          MARTIN
+ALLEN                     30 SALES          MARTIN
+JAMES                     30 SALES          MARTIN
+WARD                      30 SALES          MARTIN
+TURNER                    30 SALES          ALLEN
+BLAKE                     30 SALES          ALLEN
+MARTIN                    30 SALES          ALLEN
+JAMES                     30 SALES          ALLEN
+
+Employee N Department Number Department Nam Co-worker
+---------- ----------------- -------------- ----------
+WARD                      30 SALES          ALLEN
+BLAKE                     30 SALES          TURNER
+MARTIN                    30 SALES          TURNER
+ALLEN                     30 SALES          TURNER
+JAMES                     30 SALES          TURNER
+WARD                      30 SALES          TURNER
+TURNER                    30 SALES          JAMES
+BLAKE                     30 SALES          JAMES
+MARTIN                    30 SALES          JAMES
+ALLEN                     30 SALES          JAMES
+WARD                      30 SALES          JAMES
+
+Employee N Department Number Department Nam Co-worker
+---------- ----------------- -------------- ----------
+TURNER                    30 SALES          WARD
+BLAKE                     30 SALES          WARD
+MARTIN                    30 SALES          WARD
+ALLEN                     30 SALES          WARD
+JAMES                     30 SALES          WARD
+JONES                     20 RESEARCH       FORD
+SMITH                     20 RESEARCH       FORD
+SCOTT                     20 RESEARCH       FORD
+ADAMS                     20 RESEARCH       FORD
+JONES                     20 RESEARCH       SMITH
+FORD                      20 RESEARCH       SMITH
+
+Employee N Department Number Department Nam Co-worker
+---------- ----------------- -------------- ----------
+SCOTT                     20 RESEARCH       SMITH
+ADAMS                     20 RESEARCH       SMITH
+JONES                     20 RESEARCH       SCOTT
+FORD                      20 RESEARCH       SCOTT
+SMITH                     20 RESEARCH       SCOTT
+ADAMS                     20 RESEARCH       SCOTT
+JONES                     20 RESEARCH       ADAMS
+FORD                      20 RESEARCH       ADAMS
+SMITH                     20 RESEARCH       ADAMS
+SCOTT                     20 RESEARCH       ADAMS
+CLARK                     10 ACCOUNTING     MILLER
+
+Employee N Department Number Department Nam Co-worker
+---------- ----------------- -------------- ----------
+KING                      10 ACCOUNTING     MILLER
+
+56 rows selected.
+
+
+
+
+3. SELECT A.ENAME AS "Employee Name", B.DNAME AS "Department Name", B.LOC AS "Location"
+  2  FROM EMP A, DEPT B
+  3  WHERE A.DEPTNO = B.DEPTNO AND TRIM(A.JOB) = 'CLERK';
+
+Employee N Department Nam Location
+---------- -------------- -------------
+JAMES      SALES          CHICAGO
+SMITH      RESEARCH       DALLAS
+ADAMS      RESEARCH       DALLAS
+MILLER     ACCOUNTING     NEW YORK
+
+
+
+
+4. INSERT INTO DEPT VALUES (50, 'TRAINING', 'SAN FRANCISCO');
+
+1 row created.
+
+SELECT A.EMPNO AS "Employee Number", A.ENAME AS "Employee Name", B.DNAME AS "DEPARTMENT NAME", B.LOC AS "LOCATION"
+  2  FROM EMP A, DEPT B
+  3  WHERE A.DEPTNO = B.DEPTNO AND A.DEPTNO IN (20, 50);
+
+Employee Number Employee N DEPARTMENT NAM LOCATION
+--------------- ---------- -------------- -------------
+           7566 JONES      RESEARCH       DALLAS
+           7902 FORD       RESEARCH       DALLAS
+           7369 SMITH      RESEARCH       DALLAS
+           7788 SCOTT      RESEARCH       DALLAS
+           7876 ADAMS      RESEARCH       DALLAS
+
+
+
+
+5. INSERT INTO EMP2 VALUES (8001, 'BRADY', 'CLERK', 7788, '05-MAY-1996', 1000, NULL, NULL);
+
+1 row created.
+
+SELECT A.ENAME AS "Employee Name", B.DNAME AS "Department Name"
+  2  FROM EMP2 A FULL OUTER JOIN DEPT B
+  3  ON A.DEPTNO = B.DEPTNO;
+
+Employee N Department Nam
+---------- --------------
+KING       ACCOUNTING
+BLAKE      SALES
+CLARK      ACCOUNTING
+JONES      RESEARCH
+MARTIN     SALES
+ALLEN      SALES
+TURNER     SALES
+JAMES      SALES
+WARD       SALES
+FORD       RESEARCH
+SMITH      RESEARCH
+
+Employee N Department Nam
+---------- --------------
+SCOTT
+ADAMS
+MILLER
+BRADY
+           TRAINING
+           OPERATIONS
+
+17 rows selected.

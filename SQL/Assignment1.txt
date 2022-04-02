@@ -1,0 +1,14 @@
+sqluser55
+Lab Assignment #1
+Ian Youn
+86406
+7/5/2021
+7/5/2021
+
+1. Primary keys are unique identifiers for each row in a table. Foreign keys are primary keys from other tables that are referenced in the current table. The foreign keys must be in the same format as the primary key. These foreign keys create links to other relational tables. These links will be in the form of parent-child pairs, where the parents are referenced by the child table. 
+
+2. A data dictionary is a table in a database which contains information about the specifics of the database. Some things that a data dictionary could store is the number of tables in a database or the physical location where the data tables are stored. These dictionaries act as a precaution for future mishaps by preventing errors. They also provide consistency by providing documentation for each database. Additionally, they allow for easier access and use of the data in a database, allowing for better efficiency and productivity.
+
+3. Each column contains a certain datatype describing each row. Contained in each column are attributes such as order number or item name. Each row represents a specific object and contains corresponding data for each column. For example, each row could represent a team in a data table of sports teams.
+
+4. Referencial integrity helps maintain the validity of a relational database. It requires that a deleted value is not referenced as a foreign key from other tables. Additionally, all foreign keys must exist as a primary key in another table. Therefore, when adding or updating a row, the foreign keys for that row must exist in other parent tables.

@@ -1,0 +1,35 @@
+sqluser55
+Midterm
+Ian Youn
+86406
+7/16/2021
+7/16/2021
+
+1. (NONE)
+
+2. SELECT A.ENAME, A.SAL, B.DNAME
+FROM EMP A, DEPT B
+WHERE A.DEPTNO = B.DEPTNO
+ORDER BY SAL DESC;
+
+3. SELECT *
+FROM EMP 
+WHERE DEPTNO IS NULL;
+
+4. SELECT A.ENAME, B.DNAME
+FROM EMP A FULL OUTER JOIN DEPT B
+ON A.DEPTNO = B.DEPTNO;
+
+5. Referential integrity helps us validate the contents of a relational database. When updating a value inside a table, we must make sure that any foreign keys in that row exist as a primary key in another table. Additionally, when deleting an entry, we must make sure that the primary key of that entry does not exist as a foreign key in another table.
+
+6. SELECT A.ENAME AS "Manager's Name", B.DNAME AS "Manager's Department name", C.EMPNO AS "Employee Number", C.ENAME AS "Employee Name"
+FROM EMP A, DEPT B, EMP C
+WHERE A.DEPTNO = B.DEPTNO AND A.EMPNO = C.MGR;
+
+7. SELECT DNAME
+FROM DEPT
+WHERE DEPTNO NOT IN (SELECT DEPTNO FROM EMP WHERE DEPTNO IS NOT NULL);
+
+8. SELECT A.ENAME, A.SAL, B.GRADE
+FROMP EMP A, SALGRADE B
+WHERE A.SAL BETWEEN B.LOSAL AND B.HISAL;

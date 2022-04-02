@@ -1,0 +1,98 @@
+sqluser55
+Lab Assignment #8
+Ian Youn
+86406
+8/4/2021
+8/4/2021
+
+1. INSERT INTO LOCATION VALUES (1, 'Cupertino');
+
+1 row created.
+
+INSERT INTO COLLEGE VALUES (1, 'De Anza College', '21250 Stevens Creek Blvd, Cupertino, CA 95014', 4088645300);
+
+1 row created.
+
+INSERT INTO DEPARTMENT VALUES (1, 'Computer Information Systems', 1, 1);
+
+1 row created.
+
+INSERT INTO COURSE VALUES (1, 064, 'Intro to SQL', NULL, 1);
+
+1 row created.
+
+INSERT INTO RESIDENT VALUES (1, 'YES', 0);
+
+1 row created.
+
+INSERT INTO "USER" VASQL> LUES (1, 'Sukhjit', 'Singh', '12345 Street Ave, Cupertino, CA 95014', 'singhsukhjit@fhda.edu', '4081234567', 1, 21);
+
+1 row created.
+
+INSERT INTO SECTION VALUES (1, 15, 1, 1, 1200, 1305, '28-JUL-21', '04-AUG-21', 1);
+
+1 row created.
+
+INSERT INTO SECTION VALUES (2, 02, 1, 1, 1080, 1185, '20-SEP-21', '10-DEC-21', 1);
+
+1 row created.
+
+SELECT A.NAME, B.COURSENAME, C.*
+  2  FROM DEPARTMENT A, COURSE B, SECTION C
+  3  WHERE A.ID = B.DEPTID AND B.ID = C.COURSEID;
+
+NAME
+--------------------------------------------------
+COURSENAME                                                 ID  SECTIONNO
+-------------------------------------------------- ---------- ----------
+  COURSEID LOCATIONID  STARTTIME    ENDTIME STARTDATE ENDDATE       USERID
+---------- ---------- ---------- ---------- --------- --------- ----------
+Computer Information Systems
+Intro to SQL                                                1         15
+         1          1       1200       1305 28-JUL-21 05-AUG-21          1
+
+Computer Information Systems
+Intro to SQL                                                2          2
+         1          1       1080       1185 20-SEP-21 10-DEC-21          1
+
+NAME
+--------------------------------------------------
+COURSENAME                                                 ID  SECTIONNO
+-------------------------------------------------- ---------- ----------
+  COURSEID LOCATIONID  STARTTIME    ENDTIME STARTDATE ENDDATE       USERID
+---------- ---------- ---------- ---------- --------- --------- ----------
+
+2. INSERT INTO "USER" VALUES (2, 'Ian', 'Youn', '12345 Avenue St, Cupertino, CA 95014', 'ian.youn2004@gmail.com', '6509336478', 1, 1);
+
+1 row created.
+
+INSERT INTO PAYMENT VALUES (1, 'Intro to SQL Registration Payment');
+
+1 row created.
+
+INSERT INTO STUDENTREGISTRATION VALUES(1, 2, 1, 1, 1);
+
+1 row created.
+
+SELECT A.FIRSTNAME, A.LASTNAME, B.*, C.PAYMENTNAME
+  2  FROM "USER" A, STUDENTREGISTRATION B, PAYMENT C
+  3  WHERE A.ID = B.STUDENTID AND B.PAYMENTID = C.ID;
+
+FIRSTNAME
+--------------------------------------------------
+LASTNAME                                                   ID  STUDENTID
+-------------------------------------------------- ---------- ----------
+ SECTIONID  FEESTATUS  PAYMENTID
+---------- ---------- ----------
+PAYMENTNAME
+--------------------------------------------------
+Ian
+Youn                                                        1          2
+         1          1          1
+Intro to SQL Registration Payment
+
+
+
+
+I will be able to further improve my DB schema by adding additional CHECK constraints. I would add a CHECK constraint on the type column of the "User" table to check that the type is less than 41. I would also add a CHECK constraint on status on RESIDENT to either 0 or 1 denoting No and Yes California Residency. Additionally, I would add a CHECK constraint on the FEESTATUS column of the STUDENTREGISTRATION table to be only 0 or 1. I would also like to add a table of usertypes which provides information of each of the types of users (students, teachers, etc.). I would also remove the majority of the non null constraints as they are largely unneeded in our schema. Also, I would remove the FEESCHEDULE column from the PAYMENT table because there is no use for the column currently. Finally, I would implement indexing in the STUDENTREGISTRATION and USER tables to decrease query times because I predict them to become the largest tables once data is inputted into the tables.
+
